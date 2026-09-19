@@ -337,3 +337,102 @@ not be claimed until one is actually assigned.
 
 No software reuse licence is asserted by this local package. The authors should add
 their chosen licence before public code distribution.
+
+
+
+TrustOOD-ECG — Revision 2 reproducibility supplement
+
+Version: 2026-09-18.
+
+The recorded evidence comprises 415 corrected PTB runs and 18 explicitly
+reused ECG-only runs, plus independently valid noise and wearable studies.
+All corrected runs use protocol-specific training-only HRV imputation, 40
+epochs, the declared 3/5 seeds and the original model/configuration matrix.
+Scientific source files are byte-identical to the executed version; the
+figure generator additionally contains the final layout changes.
+
+Three distinct reproduction tasks
+
+Verify and redraw frozen results (CPU). Run python verify_package.py;
+
+install requirements-analysis.txt, then run
+ python replot_frozen_aggregates.py --output /new/path/figures.
+ This verifies distributed file hashes and redraws all 11 quantitative
+ figures from audited aggregate tables. It does not recompute predictions,
+ bootstrap statistics, or the original record-level provenance audit.
+
+
+
+Recompute from the controlled original arrays. The complete private
+
+delivery Paper46_Revision2_Reproducible_Package and its relative
+ ../../server_results tree retain all original arrays, states, logs,
+ identifiers, imputers and provenance. Read CONTROLLED_REANALYSIS.md.
+ These materials cannot be reconstructed from mean/SD tables.
+
+
+
+Train a new scientific reproduction. Obtain official datasets under
+
+their terms; use DATA_PREPARATION.md followed by FRESH_RUNS.md.
+ plan_fresh_matrix.py prints all 433 commands without executing them.
+ A fresh run of the 18 ECG-only configurations is new evidence, not the
+ historical reuse in the manuscript. Runtime-dependent paths and hashes
+ will differ, and numerical/seed comparisons must be reported honestly.
+
+
+
+Contents and provenance
+
+revision2/code contains the full model, data adapter, training, evaluation,
+calibration, aggregation, bootstrap, audit and plotting implementations.
+revision2/configs/jobs.json is the complete 433-cell matrix.
+historical_independent/code preserves the separate noise/wearable code.
+reference_outputs contains seed/class/metric summaries and final
+supplementary tables; reference_figures contains the final quantitative PDFs.
+provenance.json links each aggregate to its source SHA and records any
+removed path columns. No numeric metric is changed for distribution.
+PACKAGE_MANIFEST.json and SHA256SUMS cover every delivered file.
+
+Raw waveforms, identifier-bearing predictions, checkpoints, credentials and
+private operational inventories are excluded. Class-level counts and
+seed/subject-level statistical summaries are retained. Hardware/runtime
+records distinguish the V100S corrected runs from independent RTX 6000D
+results and local CPU statistics. Cross-hardware bitwise equality is not
+promised. Bootstrap uses 2,000 patient replicates; wearable comparisons use
+10,000 subject replicates. Published multiplicity families remain intact.
+
+The included audits intentionally reject incomplete or mismatched evidence.
+They must not be bypassed to make a fresh result appear to be the frozen
+published archive. None of these scripts uploads, submits or shuts down a
+server.
+
+Pre-submission audit additions
+
+All eight manuscript CSV tables and their data dictionary are in
+reference_outputs/manuscript_tables. The new stratified calibration tables
+come from retained formal logits and original frozen temperatures; no training,
+inference or calibration refit was performed. All-stratum values match the
+original outputs for all 80 method/seed/variant cases.
+
+With authorized access to the controlled Revision2 tree, reproduce only this
+calculation (CPU) using:
+
+python analysis/recompute_stratified_calibration.py --revision-root /path/to/Revision2 --output-dir /new/path/stratified_calibration
+
+The output directory must not exist. The frozen origin hash and raw NPZ hashes
+are checked. Private prediction arrays are required and are not in this ZIP.
+This command is distinct from model evaluation and does not produce new models.
+
+Five structural figures have a separate source:
+
+python revision2/code/generate_structural_figures.py --output-dir /new/path/structural_figures
+
+Figures 2, 3 and 5 now show the executed normalization, single-source loss
+convention and raw motion sampling rate; label fit was improved. Quantitative
+figure arrays remain unchanged. Numerical ECE definitions differ slightly
+between formal and independent noise studies; see the table index. The
+executed training/evaluation code remains byte-identical to the previous
+scientific archive. This package is a local deliverable, not a public update.
+
+
